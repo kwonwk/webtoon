@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="headerFragment">
+
+
+  <style>
+    /* .help-block 을 일단 보이지 않게 설정 */
+    #formJoin .help-block {
+      display: none;
+    }
+
+    /* glyphicon 을 일단 보이지 않게 설정 */
+    #formJoin .glyphicon {
+      display: none;
+    }
+  </style>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <!-- naverLogin -->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+    charset="utf-8"></script>
+
+  <!-- 시큐리티 -->
+  <script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $(function () {
+      $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+      });
+    });
+  </script>
+
+  <script>
+    // Get the modal
+    var modal = document.getElementById("id01");
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      var $tag = $(".tagbtn");
+
+      var getSearchList = function (searchText, $searchList) {
+        $.getJSON("/noLangToon/main/" + searchText + ".json", function (data) {
+          console.log(data);
+          console.log(data.length);
+
+          $searchList.empty();
+
+          if (data.length != 0) {
+            var list = "";
+
+            for (let i = 0; i < data.length; i++) {
+              list +=
+                '<div class="search-result input-group-append align-items-center">';
+              list += '<div class="d-inline-block">';
+              list +=
+                "<img src=" +
+                data[i].thumbnailPath +
+                ' alt="" class = "thumbnail">';
+              list += "</div>";
+              list += '<div class="d-inline-block ml-5 w-50">';
+              list += '<div class="flex-column">';
+              list += "<div>";
+              list += "<span>" + data[i].title + "</span>";
+              list += "</div>";
+              list += "<div>";
+              list += "<span>" + data[i].author + "</span>";
+              list += "</div>";
+              list += "<div>";
+              list += "</div>";
+              list += "</div>";
+              list += "</div>";
+              list += "</div>";
+              list += "<hr>";
+            }
+
+            console.log(list);
+
+            $searchList.append(list);
+          } else {
+            list = "<h3>검색 결과가 없습니다<h3>";
+
+            $searchList.append(list);
+          }
+        }); //json end
+      };
+
+      $("div[name = searchList]").on("click", ".thumbnail", function () {
+        alert("test");
+      });
+
+      $("body").on("click", "div .tagbtn", function (e) {
+        var $searchList = $("div[name = searchList]");
+
+        console.log(this);
+        e.preventDefault;
+
+        var text = $(this).text();
+        console.log(text);
+
+        var textArray = text.split("# ");
+        var searchText = textArray[1];
+
+        console.log(searchText);
+
+        getSearchList(searchText, $searchList);
+      });
+
+      $("input[name = searchText]").keypress(function (key) {
+        if (key.keyCode == 13) {
+          var searchText = $("input[name = searchText]").val();
+
+          var $searchList = $("div[name = searchList]");
+
+          getSearchList(searchText, $searchList);
+        }
+      });
+    });
+  </script>
+
+  <div class="click-closed"></div>
+
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <!-- 검색 타이틀 -->
+    <div class="text-center">
+      <br />
+      <h3 class="title">Search webtoon</h3>
+      <br />
+    </div>
+
+    <!-- close 버튼 -->
+    <span class="close-box-collapse ion-ios-close position-absolute" style="right: 20px; top: 10px;"></span>
+
+    <!-- 검색창 -->
+    <div class="w-100  text-center">
+      <div class="row">
+        <div class="w-100">
+          <input type="text" class="d-inline-block w-75 btn border" placeholder="Keyword" name="searchText" />
+          <span class="fa fa-search ml-2"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 태그 -->
+    <div class="card-header-b position-static m-1">
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 자장가</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 드라마</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 개그</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 판타지</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 동요</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 멜로</a>
+      </div>
+      <div class="card-category-b d-inline-block m-2">
+        <a class="category-b text-white tagbtn"># 액션</a>
+      </div>
+    </div>
+
+    <!-- 검색 결과 -->
+    <div class="ml-5 mr-5" name="searchList"></div>
+  </div>
+  <!-- 검색 End -->
+
+  <!--/ Nav Star /-->
+
+  <!-- all header area -->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top flex-column pb-0">
+    <!-- navbar-default : 글씨체 변경 -->
+    <!-- navbar-trans : 글씨체 변경 -->
+    <!-- navbar-expand-lg : 헤더를 모바일용으로만 보이게 한다. -->
+
+    <!-- using header area -->
+    <div class="container">
+      <span class="d-none d-lg-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
+
+      <!-- side nav button -->
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <!-- side nav button end -->
+
+      <!-- <div class="position-absolute" style="left: -110px; margin-left: 50%;"> -->
+      <div class="form-check-inline">
+        <!-- logo -->
+        <a class="navbar-brand text-brand ml-3 mr-0"><span class="color-b text-warning">NoLang</span>Toon</a>
+        <!-- logo end -->
+      </div>
+
+      <!-- 로그인/회원가입 -->
+
+      <div class="loginForm">
+        <button class="loginBtn" sec:authorize="isAnonymous()"
+          onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
+          Login
+        </button>
+        <form action="/logout" method="post" sec:authorize="isAuthenticated()">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+          <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}">
+          <button type="submit">logout</button>
+        </form>
+
+
+        <div id="id01" class="modal">
+
+          <!-- 로그인 -->
+          <form class="modal-content animate" th:action="@{/noLangToon/login}" th:method="post" id="formLogin">
+            <div class="imgcontainer">
+              <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container">
+              <label for="uname"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="username" required />
+
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="password" required />
+
+              <div style="text-align: center;">
+
+                <button class="loginSubmit" type="submit">Login</button>
+
+                <!-- 네이버 로그인 -->
+                <div id="naver_id_login">
+                  <img class="socialBtn" src="/img/NaverLoginButton.PNG" /></a>
+                </div>
+                <!-- 구글 로그인 -->
+                <div>
+                  <img class="socialBtn" src="/img/GoogleLoginButton.png" />
+                </div>
+              </div>
+
+              <label>
+                <input type="checkbox" checked="checked" name="remember-me" />
+                Remember me
+              </label>
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+              <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+              <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"> -->
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                Cancel
+              </button>
+              <button id="joinUsBtn" class="float-right">Join Us</button>
+            </div>
+          </form>
+
+          <!-- 회원가입 -->
+          <form class="modal-content animate" id="formJoin">
+
+            <div class="imgcontainer">
+              <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                title="Close Modal">&times;</span>
+            </div>
+
+            <span>아이디: <input type="text" name="joinID" id="joinID" /></span>
+            <span>비밀번호: <input type="password" maxlength="12" name="joinPW" id="joinPW" /></span>
+            <span>비밀번호 확인: <input type="password" name="joinPWConfirm" id="joinPWConfirm" maxlength="12"></span>
+            <span>메일 주소: <input type="text" name="joinMail" id="joinMail"></span>
+            <span>
+              성별: 남<input type="radio" name="joinGender" value="male">여<input type="radio" name="joinGender"
+                value="female">
+            </span>
+            <span>나이: <input type="text" name="joinAge" id="joinAge">
+            </span>
+
+            <div class="container">
+              <button class="btn btn-success" id="joinSubmit" onclick="clickJoinBtn(); return false">가입</button>
+              <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+              <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"> -->
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+              <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                Cancel
+              </button>
+              <span id="loginFormBtn" class="float-right">Back Login</span>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- 로그인/회원가입 끝 -->
+    </div>
+    <!-- using header area end -->
+    <!-- <hr style="z-index: 9999;"> -->
+    <div class="container">
+      <!-- Web select box -->
+      <select class="d-none d-md-block">
+        <option>korea</option>
+        <option>English</option>
+        <option>China</option>
+        <option>Japan</option>
+        <option>France</option>
+      </select>
+      <!-- select box end-->
+
+      <ul class="row list-unstyled mt-3 w-75 justify-content-between">
+        <li class="nav-item d-block d-md-none">&nbsp;</li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 1em;" href="index.html">Days</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 1em;" href="property-grid.html">Genre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 1em;" href="property-grid.html">Top100</a>
+        </li>
+      </ul>
+
+      <!-- 모바일 검색 버튼 -->
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <!-- 모바일 검색 버튼 끝 -->
+
+      <!-- search button -->
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <!-- search button end -->
+    </div>
+
+    <div class="container d-md-none">
+      <!-- 항목 -->
+      <div class="navbar-collapse collapse justify-content-center d-md-none" id="navbarDefault">
+        <div class="p-5 text-center bg-dark">
+          <span class="text-white">김보성님 환영합니다.</span>
+        </div>
+        <!-- select box end-->
+        <ul class="navbar-nav">
+          <br />
+          <li class="nav-item dropdown d-block d-md-none mb-2">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              언어선택
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="property-single.html">korea</a>
+              <a class="dropdown-item" href="blog-single.html">US</a>
+              <a class="dropdown-item" href="agents-grid.html">China</a>
+              <a class="dropdown-item" href="agent-single.html">Japan</a>
+              <a class="dropdown-item" href="agent-single.html">France</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">마이 페이지</a>
+            <hr />
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">회원정보 수정</a>
+            <hr />
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">고객 센터</a>
+            <hr />
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">설정</a>
+            <hr />
+          </li>
+        </ul>
+      </div>
+      <!-- 항목 -->
+    </div>
+  </nav>
+  <!-- all header area end -->
+
+  <!--/ Nav End /-->
+
+  <script>
+    // 회원가입
+    $(document).ready(function () {
+      $('#formJoin').hide();
+    });
+
+    $('#joinUsBtn').on('click', function () {
+      $('#formLogin').hide();
+      $('#formJoin').show();
+    })
+
+    $('#loginFormBtn').on('click', function () {
+      $('#formJoin').hide();
+      $('#formLogin').show();
+    })
+
+    // 회원가입 유효성 검사 
+    function checkJoin() {
+
+      var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+      var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+      var format = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+
+      // 아이디 공백 확인
+      if ($("#joinID").val() == "") {
+        alert("아이디를 입력해주세요.");
+        $("#joinID").focus();
+        return false;
+      }
+
+      // 아이디 유효성 검사
+      if (!getCheck.test($("#joinID").val())) {
+        alert("4~12자리의 영문 대소문자와 숫자로만 입력해주세요.");
+        $("#joinID").val("");
+        $("#joinID").focus();
+        return false;
+      }
+
+      // 비밀번호 유효성 검사
+      if (!getCheck.test($("#joinPW").val())) {
+        alert("4~12자리의 영문 대소문자와 숫자로만 입력해주세요.");
+        $("#joinPW").val("");
+        $("#joinPW").focus();
+        return false;
+      }
+
+      // 아이디, 비밀번호 일치여부 확인
+      if ($("#joinPW").val() == ($("#joinID").val())) {
+        alert("비밀번호와 id가 같을 수 없습니다.");
+        $("#joinPW").val("");
+        $("#joinPW").focus();
+        return false;
+      }
+
+      // 비밀번호 일치여부 확인
+      if ($("#joinPW").val() != ($("#joinPWConfirm").val())) {
+        alert("비밀번호를 다시 확인해주세요.");
+        $("#joinPW").val("");
+        $("#joinPWConfirm").val("");
+        $("#joinPW").focus();
+        return false;
+      }
+
+      // 이메일 공백 확인
+      if ($("#joinMail").val() == "") {
+        alert("이메일을 입력해주세요.");
+        $("#joinMail").focus();
+        return false;
+      }
+
+      // 이메일 유효성 검사
+      if (!getMail.test($("#joinMail").val())) {
+        alert("이메일형식에 맞게 입력해주세요")
+        $("#joinMail").val("");
+        $("#joinMail").focus();
+        return false;
+      }
+
+      // 성별 공백 확인
+      if ($('input[name=joinGender]:checked').val() === undefined) {
+        alert("성별을 선택해주세요.")
+        return false;
+      }
+
+      // 생년월일 공백 확인
+      if ($('#joinAge').val() == "") {
+        alert("생년월일을 입력해주세요.");
+        $("#joinAge").focus();
+        return false;
+      }
+
+      // 생년월일 유효성 검사
+      if (!format.test($('#joinAge').val())) {
+        alert("생년-월-일의 형식으로 유효한 값을 입력해주세요.");
+        return false;
+      }
+      return true;
+    }
+
+    // 회원가입
+    function clickJoinBtn() {
+      if (checkJoin()) {
+        var member = new Object();
+        member.id = $('#joinID').val();
+        member.pw = $('#joinPW').val();
+        member.email = $('#joinMail').val();
+        member.gender = $('input[name=joinGender]:checked').val();
+        member.age = $('#joinAge').val();
+
+        $.ajax({
+          type: 'post',
+          url: '/joinMember',
+          data: JSON.stringify(member),
+          contentType: "application/json; charset=utf-8",
+          success: function (result) {
+            location.reload();
+          }, error: function (request, status, error) {
+            console.log("fail....")
+            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+          }
+        })
+      }
+
+      return false;
+    }
+
+  </script>
+
+
+</header>
+
+</html>

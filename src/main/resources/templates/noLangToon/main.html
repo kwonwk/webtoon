@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/defaultLayout">
+<!-- index.html 고유 CSS 추가
+<th:block layout:fragment="css">
+</th:block>
+
+index.html 고유 스크립트 추가
+<th:block layout:fragment="script">
+</th:block> -->
+
+
+<section layout:fragment="content">
+    <!-- <div style="height: 163px;">&nbsp;</div> -->
+
+    <!--/ Carousel Star /-->
+    <div class="intro intro-carousel">
+        <div id="carousel" class="mainSlide carousel owl-carousel owl-theme">
+
+            <!-- img url -->
+            <div class="carousel-item-a intro-item bg-image"
+                style="background-image: url(https://image-comic.pstatic.net/webtoon/711422/thumbnail/thumbnail_IMAG02_82eb0eef-0005-4630-a709-56ec706a74a1.jpg)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+
+                                        <!-- text -->
+                                        <h1 class="intro-title mb-4">
+                                            <span class="color-b">New!</span><br>
+                                            Three Kingdoms Talk!!!
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            삼국지 영웅 유비, 조조, 손권! <br>
+                                            단톡방에 모였다?
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item-a intro-item bg-image"
+                style="background-image: url(https://image-comic.pstatic.net/webtoon/700844/thumbnail/thumbnail_IMAG02_d9609b78-4d4f-4309-916c-ab4be249ef31.jpg)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="col-lg-8">
+                                        <div class="intro-body">
+                                            <h1 class="intro-title mb-4">
+                                                <span class="color-b">New!</span><br>
+                                                걸어서 30분
+                                            </h1>
+                                            <p class="intro-subtitle intro-price">
+                                                은하학원 위성은과 지구봉의 <br> 귀갓길 로맨스, <span class="color-b">걸어서 30분</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item-a intro-item bg-image"
+                style="background-image: url(https://image-comic.pstatic.net/webtoon/670149/thumbnail/thumbnail_IMAG02_f451ed6d-1a05-4c92-a582-46cfcbefd592.jpg)">
+                <div class="overlay overlay-a"></div>
+                <div class="intro-content display-table">
+                    <div class="table-cell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="intro-body">
+                                        <h1 class="intro-title mb-4">
+                                            <span class="color-b">TERROR </span> MAN
+                                        </h1>
+                                        <p class="intro-subtitle intro-price">
+                                            한 사람이라도 더 살릴 수 있다면,<br>
+                                            테러리스트가 되어도 상관없어 -<span class="color-b">간지남 정우</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ Carousel end /-->
+
+    <!--/ Today's webtoon /-->
+    <section class="section-property section-t3">
+        <div class="container" style="width: auto; height: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between pb-4">
+
+                        <!-- 소제목 -->
+                        <div class="title-box">
+                            <h2 class="title-a">Today's webtoon</h2>
+                        </div>
+                        <!-- 더보기 -->
+                        <div class="title-link">
+                            <a href="property-grid.html">more
+                                <span class="ion-ios-arrow-forward"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="today-webtoon" class="owl-carousel owl-theme">
+
+                <!-- 오늘의 웹툰 슬라이드 -->
+                <div th:each="todayArr : ${todayResult}">
+                    <div class="carousel-item-b">
+                        <div class="card-box-a card-shadow">
+
+                            <div class="img-box-a">
+                                <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                    New
+                                </span>
+                                <span class="position-absolute bg-primary text-white" style="top: 0; right: 0;">
+                                    UPLOAD
+                                </span>
+                                <img th:src="${todayArr[0].thumbnailPath}" alt="" class="img-a img-fluid">
+                            </div>
+
+                            <div class="card-overlay overlay-a">
+                                <div class="card-overlay-a-content">
+                                    <div class="card-body-a overlay-a pb-3">
+                                        <div class="price-box d-flex text-justify">
+                                            <span class="text-white ml-3">[[${todayArr[0].title}]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                        <hr class="m-0 bg-white mb-3">
+                                        <span class="text-white">[[${todayArr[0].author}]]</span>
+                                        <span class="bg-primary text-white">New</span>
+                                        <span class="bg-primary text-white">UPLOAD</span><br>
+                                        <span class="text-white">[[${todayArr[2].genre}]]</span>
+                                        <span class="text-white float-right" style=" margin-right: 40px">[[${todayArr[1]}]]
+                                            <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                                alt="" style="width: 20px; display: inline-block !important;">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 오늘의 웹툰 슬라이드 끝 -->
+
+            </div>
+        </div>
+    </section>
+    <!--/ Today's webtoon End /-->
+
+    <!--/ New webtoon /-->
+    <section class="section-agents section-t3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between pb-4">
+                        <div class="title-box">
+                            <h2 class="title-a">New webtoon</h2>
+                        </div>
+                        <div class="title-link">
+                            <a href="agents-grid.html">more
+                                <span class="ion-ios-arrow-forward"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="new-webtoon" class="mainSlide owl-carousel owl-theme owl-loaded owl-drag">
+
+                <!-- 신작 슬라이드 -->
+                <div th:each="newArr : ${newResult}">
+                    <div class="carousel-item-b">
+                        <div class="card-box-a card-shadow">
+
+                            <!-- Img url, New -->
+                            <div class="img-box-a">
+                                <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                    New
+                                </span>
+                                <span class="position-absolute bg-primary text-white" style="top: 0; right: 0;">
+                                    UPLOAD
+                                </span>
+                                <img th:src="${newArr[0].thumbnailPath}" alt="" class="img-a img-fluid">
+                            </div>
+
+                            <div class="card-overlay overlay-a">
+                                <div class="card-overlay-a-content">
+                                    <div class="card-body-a overlay-a pb-3">
+                                        <div class="price-box d-flex text-justify">
+                                            <span class="text-white ml-3">[[${newArr[0].title}]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                        <hr class="m-0 bg-white mb-3">
+                                        <span class="text-white">[[${newArr[0].author}]]</span>
+                                        <span class="bg-primary text-white">New</span>
+                                        <span class="bg-primary text-white">UPLOAD</span><br>
+                                        <span class="text-white">[[${newArr[2].genre}]]</span>
+                                        <span class="text-white float-right"
+                                            style=" margin-right: 40px">[[${newArr[1]}]]
+                                            <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                                alt="" style="width: 20px; display: inline-block !important;">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 신작 슬라이드 끝 -->
+
+            </div>
+        </div>
+    </section>
+    <!--/ New webtoon End /-->
+
+
+    <!--/ Hot webtoon /-->
+    <section class="section-agents section-t3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between pb-4">
+                        <div class="title-box">
+                            <h2 class="title-a">Hot webtoon</h2>
+                        </div>
+                        <div class="title-link">
+                            <a href="agents-grid.html">more
+                                <span class="ion-ios-arrow-forward"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hot-webtoon" class="mainSlide owl-carousel owl-theme owl-loaded owl-drag">
+
+                <div th:each="popularArr : ${popularResult}">
+                    <!-- 인기순 슬라이드 -->
+                    <div class="carousel-item-b">
+                        <div class="card-box-a card-shadow">
+
+                            <!-- Img url, New -->
+                            <div class="img-box-a">
+                                <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                    New
+                                </span>
+                                <span class="position-absolute bg-primary text-white" style="top: 0; right: 0;">
+                                    UPLOAD
+                                </span>
+                                <img th:src="${popularArr[0].thumbnailPath}"
+                                    alt="" class="img-a img-fluid">
+                            </div>
+
+                            <div class="card-overlay overlay-a">
+                                <div class="card-overlay-a-content">
+                                    <div class="card-body-a overlay-a pb-3">
+                                        <div class="price-box d-flex text-justify">
+                                            <span class="text-white ml-3">[[${popularArr[0].title}]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                        <hr class="m-0 bg-white mb-3">
+                                        <span class="text-white">[[${popularArr[0].author}]]</span>
+                                        <span class="bg-primary text-white">New</span>
+                                        <span class="bg-primary text-white">UPLOAD</span><br>
+                                        <span class="text-white">[[${popularArr[2].genre}]]</span>
+                                        <span class="text-white float-right" style=" margin-right: 40px">[[${popularArr[1]}]]
+                                            <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                                alt="" style="width: 20px; display: inline-block !important;">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 인기순 슬라이드 끝 -->
+
+            </div>
+        </div>
+    </section>
+    <!--/ Hot webtoon End /-->
+
+    <!--/ recommend webtoon /-->
+    <section class="section-agents section-t3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-wrap d-flex justify-content-between pb-4">
+                        <div class="title-box">
+                            <h2 class="title-a">Recommend</h2>
+                        </div>
+                        <div class="title-link">
+                            <a href="agents-grid.html">more
+                                <span class="ion-ios-arrow-forward"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recommend-webtoon" class="mainSlide owl-carousel owl-theme owl-loaded owl-drag">
+                <!-- 슬라이드 하나 -->
+                <div class="carousel-item-b">
+                    <div class="card-box-a card-shadow">
+
+                        <!-- Img url, New -->
+                        <div class="img-box-a">
+                            <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                New
+                            </span>
+                            <span class="position-absolute bg-primary text-white" style="top: 0; right: 0;">
+                                UPLOAD
+                            </span>
+                            <img src="https://shared-comic.pstatic.net/thumb/webtoon/737020/thumbnail/thumbnail_IMAG04_ee32818c-123f-4e51-84bf-9aa28a777079.jpg"
+                                alt="" class="img-a img-fluid">
+                        </div>
+
+                        <div class="card-overlay overlay-a">
+                            <div class="card-overlay-a-content">
+                                <div class="card-body-a overlay-a pb-3">
+                                    <div class="price-box d-flex text-justify">
+                                        <span class="text-white ml-3">물레 1화</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                    <hr class="m-0 bg-white mb-3">
+                                    <span class="text-white">고긱</span>
+                                    <span class="bg-primary text-white">New</span>
+                                    <span class="bg-primary text-white">UPLOAD</span><br>
+                                    <span class="text-white">스토리, 일상, 드라마, 감성</span>
+                                    <span class="text-white float-right" style=" margin-right: 40px">999+
+                                        <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                            alt="" style="width: 20px; display: inline-block !important;">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item-b">
+                    <div class="card-box-a card-shadow">
+
+                        <!-- Img url, New -->
+                        <div class="img-box-a">
+                            <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                New
+                            </span>
+                            <img src="https://shared-comic.pstatic.net/thumb/webtoon/694807/thumbnail/thumbnail_IMAG04_613279d7-aa72-47ba-9c56-9a2490bc2ddf.jpg"
+                                alt="" class="img-a img-fluid">
+                        </div>
+
+                        <div class="card-overlay overlay-a">
+                            <div class="card-overlay-a-content">
+                                <div class="card-body-a overlay-a pb-3">
+                                    <div class="price-box d-flex text-justify">
+                                        <span class="text-white ml-3">물레 1화</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                    <hr class="m-0 bg-white mb-3">
+                                    <span class="text-white">고긱</span>
+                                    <span class="bg-primary text-white">New</span><br>
+                                    <span class="text-white">스토리, 일상, 드라마, 감성</span>
+                                    <span class="text-white float-right" style=" margin-right: 40px">999+
+                                        <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                            alt="" style="width: 20px; display: inline-block !important;">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item-b">
+                    <div class="card-box-a card-shadow">
+
+                        <!-- Img url, New -->
+                        <div class="img-box-a">
+                            <span class="position-absolute bg-primary text-white" style="top: 0; left: 0;">
+                                New
+                            </span>
+                            <img src="https://shared-comic.pstatic.net/thumb/webtoon/730391/thumbnail/thumbnail_IMAG04_4c40e68d-fb7e-4a14-84e3-5dff9685d511.jpg"
+                                alt="" class="img-a img-fluid">
+                        </div>
+
+                        <div class="card-overlay overlay-a">
+                            <div class="card-overlay-a-content">
+                                <div class="card-body-a overlay-a pb-3">
+                                    <div class="price-box d-flex text-justify">
+                                        <span class="text-white ml-3">물레 1화</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer-a bg-transparent ml-3 mr-3">
+                                    <hr class="m-0 bg-white mb-3">
+                                    <span class="text-white">고긱</span>
+                                    <span class="bg-primary text-white">New</span><br>
+                                    <span class="text-white">스토리, 일상, 드라마, 감성</span>
+                                    <span class="text-white float-right" style=" margin-right: 40px">999+
+                                        <img src="https://static.vecteezy.com/system/resources/previews/000/479/744/non_2x/vector-icon-gold-star-icon-star-logo-stars.jpg"
+                                            alt="" style="width: 20px; display: inline-block !important;">
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--/ recommend End /-->
+
+    <style>
+        .img-a {
+            width: 350px;
+            height: 330px;
+        }
+    </style>
+
+    <br><br>
+
+</section>
+
+</html>
+
+<!-- resources - static - js - main.js에 추가하기
+	
+	$('#today-webtoon').owlCarousel({
+		loop: true,
+		margin: 30,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			769: {
+				items: 2,
+			},
+			992: {
+				items: 3,
+			}
+		}
+	});
+
+	$('#new-webtoon').owlCarousel({
+		loop: true,
+		margin: 30,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			769: {
+				items: 2,
+			},
+			992: {
+				items: 3,
+			}
+		}
+	});
+
+	$('#hot-webtoon').owlCarousel({
+		loop: true,
+		margin: 30,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			769: {
+				items: 2,
+			},
+			992: {
+				items: 3,
+			}
+		}
+	});
+
+	$('#recommend-webtoon').owlCarousel({
+		loop: true,
+		margin: 30,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			769: {
+				items: 2,
+			},
+			992: {
+				items: 3,
+			}
+		}
+	});
+
+
+ -->

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    admin
+    <a href="/customLogout">logout</a>
+
+    <div class="account">
+        <ul>
+            <li id="your-account" sec:authorize="isAnonymous()">
+                ... code 1 ...
+            </li>
+            <li id="your-account" sec:authorize="isAuthenticated()">
+                ... code 2 ...
+            </li>
+        </ul>
+    </div>
+
+
+</body>
+
+</html>

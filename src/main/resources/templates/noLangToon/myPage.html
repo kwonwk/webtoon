@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout/defaultLayout">
+
+<!-- index.html 고유 CSS 추가
+<th:block layout:fragment="css">
+</th:block>
+
+index.html 고유 스크립트 추가
+<th:block layout:fragment="script">
+</th:block> -->
+
+<!--/ 마이페이지 Start /-->
+<section layout:fragment="content"><br><br><br><br><br><br><br>
+
+  <style>
+    .flipbook img {
+      width: 100%;
+      height: 70%;
+    }
+
+    .flipbook {
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .page {
+      background-color: white;
+    }
+
+    .page-wrapper,
+    .page.even,
+    .page.odd {
+      width: 525px !important;
+    }
+
+    .fileContent{
+      padding-top:5px;
+      font-size: 36px;
+      text-align: center;
+    }
+  </style>
+
+  <!-- 마이페이지 공통부분 -->
+  <!-- Web -->
+  <div class="container">
+    <div class=" d-none d-md-block">
+      <ul class="row list-unstyled justify-content-between nav-item m-0 p-0">
+        <li id="myPageTab1" class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">관심 웹툰</li>
+        <li id="myPageTab2" class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">책갈피</li>
+        <li id="myPageTab3" class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">스크랩</li>
+        <li id="myPageTab4" class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">최근 본 웹툰</li>
+      </ul>
+    </div>
+    <!-- Mobile -->
+    <div class="d-block d-md-none">
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle navbar-default" style="width: 100%;" href="#" id="navbarDropdown"
+          role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mypage Menu
+        </a>
+        <ul class="dropdown-menu navbar-default p-0 m-0" style="width: 100%;" aria-labelledby="navbarDropdown">
+          <li id="myPageTab1" class="dropdown-item nav-link navbar-default">관심 웹툰</li>
+          <li id="myPageTab2" class="dropdown-item nav-link navbar-default">책갈피</li>
+          <li id="myPageTab3" class="dropdown-item nav-link navbar-default">스크랩</li>
+          <li id="myPageTab4" class="dropdown-item nav-link navbar-default">최근 본 웹툰</li>
+        </ul>
+        </li>
+      </div>
+    </div>
+    <br>
+    <!-- 마이페이지 공통부분 끝 -->
+
+    <!-- 스크랩 탭-자세히 start --><br>
+    <div class="container tabShowAndHide" id="scrapTab2">
+
+      <div class="flipbook-viewport">
+        <div class="container">
+          <div class="flipbook">
+            <div>
+              <img src="https://images-na.ssl-images-amazon.com/images/I/61GNKIUboBL._SL1000_.jpg" alt="">
+              <div class="fileContent">
+                MyScrapPage
+              </div>
+            </div>
+            <!-- <div>
+              <img src="https://pbs.twimg.com/profile_images/3572978953/8c522d3ea384cd42e46a4a2498300c35_400x400.jpeg"
+                alt="">
+              <div class="flieContent">
+                <input type="checkbox" style="float: right;">
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 버튼 -->
+      <div class="btnBox position-relative" style="margin-top: 10px;">
+        <!-- Web -->
+        <div class="position-absolute d-none d-md-block" style="right: 10px;">
+          <button type="submit" id="imgDeleteBtn">삭제</button>
+          <!-- <button type="submit" id="imgUpdate">수정</button> -->
+        </div>
+        <!-- Mobile -->
+        <div class="navbar-default text-center d-block d-md-none">삭제</div>
+      </div>
+
+      <!-- 모바일에서는 hr선 안보임 -->
+      <hr class="mt-5 d-none d-md-block">
+    </div>
+    <!-- 스크랩 탭-2-자세히 end -->
+
+    <!-- 스크랩 탭-1 start -->
+    <div class="container tabShowAndHide" id="scrapTab">
+
+      <!-- 스크랩 앨범목록 -->
+      <ul class="list-unstyled p-5 navbar-default">
+      </ul>
+      <div class="navbar-default mb-2 text-center" id="moreAlbum">
+        <span>더보기</span>
+      </div>
+
+      <button id="addAlbumBtn"> + 앨범 추가</button>
+      <div class="btnBox float-right">
+        <button id="deleteAlbumBtn">삭제</button>
+      </div>
+    </div>
+    <!-- 스크랩 탭-1 끝-->
+
+    <!-- 책갈피 탭 start -->
+    <!-- 목록 보여주는 화면  -->
+    <div class="container mt-3 pt-5 pb-5 tabShowAndHide" id="bookmarkTab">
+      <div class="ml-5 mr-5">
+
+        <!-- 테이블 -->
+        <div class="container">
+          <table class="table text-center" style="vertical-align: middle;" id="bookmark">
+
+            <!-- 웹페이지 -->
+            <diV class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block">
+
+              <tr>
+                <td></td>
+                <td>제목</td>
+                <td>화수</td>
+                <td>등록일자</td>
+                <td>선택</td>
+              </tr>
+
+            </div>
+            <!-- 웹 페이지 끝 -->
+
+            <!-- 모바일 페이지 끝 -->
+
+          </table>
+        </div>
+        <!-- 테이블 끝 -->
+      </div>
+      <div>
+        <button type="submit" class="position-absolute bookmarkDel" style="right: 10%;">삭제</button>
+      </div>
+    </div>
+    <!-- 목록 보여주는 화면 끝 -->
+    <!-- 책갈피탭 끝 -->
+
+
+
+    <!-- 최근 본 웹툰 탭 start -->
+    <!-- 목록 보여주는 화면  -->
+    <div class="container mt-3 pt-5 pb-5 tabShowAndHide" id="recentWebtoonTab">
+      <div class="ml-5 mr-5">
+
+        <!-- 테이블 -->
+        <div class="container">
+          <table class="table text-center" style="vertical-align: middle;" id="recentWebtoon">
+
+            <!-- 웹페이지 -->
+            <!-- <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block"> -->
+            <tr>
+              <td>썸네일</td>
+              <td>제목</td>
+              <td>화수</td>
+              <td>부제목</td>
+              <td>작가</td>
+            </tr>
+
+            <!-- </div> -->
+            <!-- 웹 페이지 끝 -->
+
+            <!-- 모바일 페이지 끝 -->
+
+          </table>
+        </div>
+        <!-- 테이블 끝 -->
+      </div>
+      <div>
+        <button type="submit" class="position-absolute" id="recentDeleteBtn" style="right: 10%;">삭제</button>
+      </div>
+    </div>
+    <!-- 목록 보여주는 화면 끝 -->
+    <!-- 최근 본 웹툰탭 끝 -->
+
+
+    <!-- 관심 웹툰 탭 start -->
+    <div class="interesting container tabShowAndHide" id="interestedTab">
+      <!-- <div class="small-title" style="height: 50px;">
+        <div class="float-right m-2 text-center navbar-default p-2 m-0" style="width: 100px; height: 40px;">
+          삭제
+        </div>
+        <div class="float-right m-2 text-center navbar-default p-2 m-0" style="width: 100px; height: 40px;">
+          전체선택
+        </div>
+      </div> -->
+
+
+      <!-- 목록 보여주는 화면  -->
+      <div class="container mt-3 pt-5 pb-5">
+        <div class="ml-5 mr-5">
+
+          <!-- 테이블 -->
+          <div class="container">
+            <table class="table text-center" id="interestTab" style="vertical-align: middle;">
+              <!-- <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block"> -->
+              <tr>
+                <td>이미지</td>
+                <td>제목</td>
+                <td>작가</td>
+                <td>삭제</td>
+              </tr>
+
+              <!-- 웹 페이지 끝 -->
+              <!-- </div> -->
+
+            </table>
+          </div>
+          <!-- 테이블 끝 -->
+        </div>
+        <div>
+          <button id=interestedBtn type="submit" class="position-absolute" style="right: 10%;">삭제</button>
+        </div>
+      </div>
+      <!-- 목록 보여주는 화면 끝 -->
+      <div class="navbar-default mb-2 text-center" id="moreInterest">
+        <span>더보기</span>
+      </div>
+
+    </div>
+    <!-- 관심 웹툰 탭 end -->
+
+    <script>
+      $(document).ready(function () {
+        var page = 0;
+        var interestPage = 0;
+        var albumToggle = true;
+
+        loadApp();  // 스크랩의 책 펼치기 기능.
+        interestedShow(); // 최초 로딩시 관심웹툰의 데이터를 가져온다.
+
+        $('.tabShowAndHide').hide();
+        $('#interestedTab').show();
+
+        var getList = {
+          getBookMark: function getBookMark(list) {
+            $("#bookmark").empty();
+
+            for (let i = 0; i < list.length; i++) {
+              var str = ""
+              str += "<tr>";
+              str += "<td><img src =" + list[i][0] + "></td>";
+              str += "<td>" + list[i][1] + "</td>";
+              str += "<td>" + list[i][2] + "</td>";
+              str += "<td>" + list[i][3] + "</td>";
+              str += "<td><input type='checkbox' name ='check' id=" + list[i][4] + "></td></tr>"
+              $("#bookmark").append(str);
+            }
+          },
+
+          getRecentWebtoon: function getRecentWebtoon(list) {
+            $("#recentWebtoon").empty();
+
+            for (let i = 0; i < list.length; i++) {
+              var str = ""
+              str += "<tr>";
+              str += "<td><img src ='/displayWebtoon/" + list[i][2].title + "/" + list[i][1].subtitle + "/" + list[i][1].thumbnailPath + "'></td>";
+              str += "<td>" + list[i][2].title + "</td>";
+              str += "<td>" + list[i][1].subtitle + "</td>";
+              str += "<td>" + list[i][2].author + "</td>";
+              str += "<td><input type='checkbox' name ='check' id=" + list[i][0].recentno + "></td></tr>"
+
+              $("#recentWebtoon").append(str);
+            }
+          }
+        };
+
+        // myPage 메뉴 탭 클릭시 이벤트.
+        for (let i = 1; i <= 5; i++) {
+          $('#myPageTab' + i).on('click', function () {
+            $('.tabShowAndHide').hide();
+            if (i === 1) interested();
+            else if (i === 2) bookmark();
+            else if (i === 3) scrap();
+            else if (i === 4) recentWebtoon();
+          })
+        }
+
+        // 앨범 파일 목록을 보여준다.
+        $('ul').on('click', '.scrapPage', function () {
+          console.log('click scrapPage');
+          var $this = $(this);
+          $('#scrapTab2').slideUp(1200);
+
+          var albumno = $this.parent().parent().data("albumno")
+          albumName = $this.text();
+          getAlbumFiles(albumno);
+        })
+
+        // 앨범 리스트 더 가져오기
+        $('#moreAlbum').on('click', function () {
+          getAlbumList();
+        })
+
+        // 앨범 수정
+        $('ul').on('click', '.albumNameModify', function () {
+          let scrap = new Object();
+          scrap.albumName = prompt('앨범 이름을 입력해주세요.');
+          scrap.albumno = $(this).parent().parent().data("albumno");
+          addAlbum(scrap);
+        })
+
+        // 앨범 추가
+        $('#addAlbumBtn').on('click', function () {
+          let scrap = new Object();
+          scrap.albumName = prompt('앨범 이름을 입력해주세요');
+          addAlbum(scrap);
+        })
+
+        // 앨범 삭제
+        $('#deleteAlbumBtn').on('click', function () {
+          let deleteAlbumList = $('.deleteBox:input:checked');
+          let albumnoArr = new Array();
+          for (let i = 0; i < deleteAlbumList.length; i++) {
+            albumnoArr.push($(deleteAlbumList[i]).parent().parent().data("albumno"));
+          }
+          deleteAlbums(albumnoArr);
+        })
+
+        // 스크랩 앨범 목록 삭제시. - 수정필요(DB에서 삭제하기)
+        $('#scrapTab2').on('click', '#imgDeleteBtn', function () {
+          console.log('btnClicked........')
+          var imgCheckBox = $('#scrapTab2').find('input:checkbox:checked');
+          console.log(imgCheckBox);
+          var numArr = new Array();
+          var afnoArr = new Array();
+          for (let i = 0; i < imgCheckBox.length; i++) {
+            $('.flipbook').turn('removePage', findNum($(imgCheckBox[i]).parent().parent().attr('class')));
+            afnoArr.push($(imgCheckBox[i]).data("afno"));
+          }
+          deleteAlbumFiles(afnoArr);
+        })
+
+        $('#recentDeleteBtn').on('click', function () {
+          console.log("deleteRecent..........")
+          var recentWebtoonBox = $('#recentWebtoon').find('input:checkbox:checked');
+          var recentnoArr = new Array();
+          for (let i = 0; i < recentWebtoonBox.length; i++) {
+            recentnoArr.push(recentWebtoonBox[i].id);
+          }
+          recentWebtoonDelete(recentnoArr);
+        })
+
+        // albumno 앨범의 사진들을 가져온다.
+        function getAlbumFiles(albumno) {
+          if (albumToggle || regAlbumno !== albumno) {
+            console.log(albumno);
+            // $("#flipbook").turn("destroy").remove();
+            $.getJSON("/rest/getAlbumFiles/" + albumno, function (data) {
+              var page = 2;
+
+              for (let i = 2; i <= $('.flipbook').turn('pages'); i++) {
+                $('.flipbook').turn("removePage", i);
+              }
+
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                var albumFilePath = data[i].albumFilePath;
+                var str = '<img src="/displayScrap/' + albumName + '/' + albumFilePath + '">'
+                  + '<div class="fileContent">' + data[i].albumContent
+                  + '<input type="checkbox" data-afno="' + data[i].afno + '" style="float:right"></div>'
+                var element = $("<div />").append(str);
+                $('.flipbook').turn("addPage", element);
+              }
+              regAlbumno = albumno;
+              $('#scrapTab2').slideDown(1200);
+              if (regAlbumno !== albumno)
+                albumToggle = !albumToggle;
+            })
+          } else {
+            console.log("closeAlbum..........")
+          }
+          albumToggle = !albumToggle;
+        }
+
+        // 앨범 삭제 ajax
+        function deleteAlbums(albumnoArr) {
+          console.log(albumnoArr);
+          $.ajax({
+            url: '/rest/deleteAlbumArr',
+            type: 'POST',
+            data: JSON.stringify(albumnoArr),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+              scrapTabReset();
+            }, error: function (xhr, status, er) {
+              console.log("fail");
+              if (error) error(er);
+            }
+          })
+        }
+
+        // 앨범 이미지 삭제 ajax
+        function deleteAlbumFiles(afnoArr) {
+          console.log(afnoArr);
+          $.ajax({
+            url: '/rest/deleteAlbumFiles',
+            type: 'POST',
+            data: JSON.stringify(afnoArr),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+              scrapTabReset();
+            }, error: function (xhr, status, er) {
+              console.log("fail");
+              if (error) error(er);
+            }
+          })
+        }
+
+        // 앨범 추가/수정 ajax
+        function addAlbum(scrap) {
+          console.log(scrap);
+          $.ajax({
+            url: '/rest/registAlbum',
+            type: 'POST',
+            data: JSON.stringify(scrap),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+              scrapTabReset();
+            }, error: function (xhr, status, er) {
+              console.log("fail");
+              if (error) error(er);
+            }
+          })
+        }
+
+        // scrapTap Reset
+        function scrapTabReset() {
+          page = 0;
+          $('#scrapTab').find('ul').html('');
+          getAlbumList();
+        }
+
+        // 스크랩에 앨범목록을 출력한다.
+        function getAlbumList() {
+          console.log('getAlbumList..........')
+          $.getJSON("/rest/getAlbumList/" + page, function (data) {
+            var str = '';
+            for (let i = 0; i < data.length; i++) {
+              str += '<li class="nav-item title-link  m-0 p-3 navbar-trans position-relative" data-albumno="' + data[i].albumno + '">'
+                + '<div class="scrapDiv"><span class="scrapPage">' + data[i].albumName + '</span>'
+                + '<button class="position-absolute p-0 m-0 albumNameModify" style="right: 40px;">수정</button>'
+                + '<input type="checkbox" class="position-absolute deleteBox" style="right: 10px;"></div></li><hr class="m-0 p-0">';
+            }
+            $('#scrapTab').find('ul').append(str);
+            page++;
+
+          }).fail(function (request, status, error) {
+            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+          })
+        }
+
+        function interested() {
+          $('#interestedTab').show();
+        }
+
+        // 관심웹툰의 데이터를 가져와서 보여준다.
+        function interestedShow() {
+          console.log('interestedshow..........')
+          $.getJSON("/rest/getInterestedList/" + interestPage, function (data) {
+            var str = '';
+            for (let i = 0; i < data.length; i++) {
+              str += '<tr><td><img src="/displayWebtoonThumbnail/' + data[i].webtoon.title + '/' + data[i].webtoon.thumbnailPath + '"></td>'
+                + '<td>' + data[i].webtoon.title + '</td>'
+                + '<td>' + data[i].webtoon.author + '</td>'
+                + '<td><input id="interestedCheck" data-ino="' + data[i].ino + '" type="checkbox"></td></tr>'
+            }
+
+            $('#interestTab').append(str);
+            console.log(interestPage);
+            interestPage++;
+          })
+
+        }
+
+        function scrap() {
+          page = 0;
+          $('#scrapTab').find('ul').html('');
+          getAlbumList();
+          $('#scrapTab').show();
+        }
+
+        //북마크
+        function bookmark() {
+          $("#bookmark").empty();
+
+          $.ajax({
+            url: '/noLangToon/bookmark',
+            type: 'GET',
+            success: function (list) {
+              getList.getBookMark(list);
+            },
+            error: "fail"
+          }); //$.ajax
+
+          $('#bookmarkTab').show();
+        }
+
+        //북마크 삭제
+        $(".bookmarkDel").on("click", function () {
+
+          var formData = new FormData();
+          var bno = new Array();
+
+          $("input:checkbox[name=check]:checked").each(function () {
+
+            if ($(this).val() === 'on') {
+              console.log($(this).attr("id"));
+              bno.push($(this).attr("id"));
+              console.log(bno);
+            }
+          })
+
+          $.ajax({
+            url: '/noLangToon/bookmark',
+            data: JSON.stringify(bno),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST'
+            , success: function (list) {
+              console.log(list);
+              getList.getBookMark(list);
+            },
+            error: "fail"
+          }); //$.ajax
+
+        })
+
+        //최근 본 웹툰
+        function recentWebtoon() {
+          $.ajax({
+            url: '/noLangToon/recentWebtoon',
+            type: 'GET',
+            success: function (list) {
+              console.log(list);
+              getList.getRecentWebtoon(list);
+            },
+            error: "fail"
+          }); //$.ajax
+
+          $('#recentWebtoonTab').show();
+        }
+
+
+        // 최근 본 웹툰 삭제
+        function recentWebtoonDelete(recentnoArr) {
+          console.log(recentnoArr);
+          $.ajax({
+            url: '/noLangToon/deleteRecentWebtoon',
+            data: JSON.stringify(recentnoArr),
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            type: 'POST'
+            , success: function (list) {
+              console.log(list);
+              getList.getRecentWebtoon(list);
+            },
+            error: "fail"
+          }); //$.ajax
+
+        }
+
+
+        // 스크랩 탭 책 넘기는 효과
+        function loadApp() {
+          var size = $('#scrapTab2').width() - $('#scrapTab2') - 30;
+          console.log(size);
+          $('.flipbook').turn({
+            width: size,
+            height: 600,
+            elevation: 50,
+            gradients: true,
+            autoCenter: true
+          });
+        }
+
+
+
+        // 숫자만 추출
+        function findNum(str) {
+          return str.replace(/[^0-9]/g, "");
+        }
+
+        // 관심 웹툰 삭제 ajax
+        function deleteInterest(inoArr) {
+          console.log(inoArr);
+          $.ajax({
+            url: '/rest/deleteInterested',
+            type: 'POST',
+            data: JSON.stringify(inoArr),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+
+              $('#interestTab').html('<tr><td>이미지</td><td>제목</td><td>작가</td><td>삭제</td></tr>');
+              interestedShow();
+              interestPage--;
+
+            }, error: function (xhr, status, er) {
+              console.log("fail");
+              if (error) error(er);
+            }
+          })
+        }
+
+        // 체크되어있는 관심 웹툰을 삭제한다.
+        $('#interestedBtn').on('click', function () {
+          let deleteInterested = $('#interestedCheck:checked');
+          let inoArr = new Array();
+          for (let i = 0; i < deleteInterested.length; i++) {
+            inoArr.push($(deleteInterested[i]).data("ino"));
+          }
+          deleteInterest(inoArr);
+        })
+
+        // 관심웹툰 더보기 클릭시 목록 추가
+        $('#moreInterest').on('click', function () {
+          interestedShow();
+        })
+
+        $('#interestedCheck').on('click', function () {
+          console.log("interestedCheck");
+        })
+      })
+
+    </script>
+
+    <script th:src="@{/js/turnjs/modernizr.2.5.3.min.js}"></script>
+    <script th:src="@{/js/turnjs/turn.js}"></script>
+
+</section>
+<!--/ 마이페이지 End /-->
+
+
+</html>

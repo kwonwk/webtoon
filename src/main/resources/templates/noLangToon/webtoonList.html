@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout/defaultLayout">
+
+<div layout:fragment="content">
+
+  <!-- 스크랩 import? -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+
+
+  <!-- 시큐리티 -->
+  <!-- <script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(function () {
+      $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+      });
+    });
+  </script> -->
+
+  <!-- 웹페이지 -->
+  <div class="d-none d-sm-none d-md-none d-lg-block d-xl-block">
+
+    <div style="height: 165px;">&nbsp;</div>
+    <!--/ Carousel Star (banner) /-->
+    <div class="intro intro-carousel" style="height:400px">
+
+      <!-- 첫번째 화면 -->
+      <div class="carousel-item-a intro-item bg-image h-100 p-0">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table h-100"
+          style="background-image: url(https://data.1freewallpapers.com/detail/dark-horror-gothic-cemetary-grave-black-white-spooky-creepy-lfog-mist-mood-gallery.jpg); height: 50%; background-repeat: no-repeat; background-size: cover; background-position: 50%;">
+          <div class="overlay overlay-a"></div>0
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+
+                <!-- 글자 위치 -->
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <p class="intro-title-top">
+                      <br>관심 웹툰 등록 갯수
+                      <br> <img src="http://cfile213.uf.daum.net/image/253FEA3457F97CCE3DCBC7" style="width: 20px;">
+                      [[${interest}]]
+                    </p>
+
+                    <!-- 두번째 글자 위치 -->
+                    <div class="col-lg-4 d-block d-sm-block d-md-block d-lg-none d-xl-none">
+                      <!-- d-xl-block : 가장 큰 화면 보이기 / none : 안보이기 -->
+                      <!-- d-lg-block : 두번째 큰 화면 보이기 / none : 안보이기 -->
+                      <!-- 여기서부터 왼쪽 네비버튼 나옴 -->
+
+                      <!-- d-md-block : 중간 화면 보이기 / none : 안보이기 -->
+                      <!-- d-sm-block : 작은 화면 보이기 / none : 안보이기 -->
+                      <!-- d-block : 핸드폰(가장작은) 화면 보이기 / none : 안보이기 -->
+                      <br>
+                      <h1 class="mb-4 font-weight-bold" style="text-align:center">
+                        <span class="color-b">[[${webtoon.title}]]</span></h1>
+                      <h3 class="text-white">웹툰 소개</h3>
+                      <p>[[${webtoon.introduce}]]</p>
+                      <h4 class="text-white">[[${webtoon.author}]]</h4>
+                    </div>
+                    <!-- 두번째 글자 위치 끝-->
+
+                    <p class="intro-subtitle intro-price">
+                      <!-- <button class="price-a btn-secondary">첫화보기</button>
+                    <button class="price-a btn-warning ">관심 웹툰 등록1</button>
+                    <button class="price-a btn-dark">관심 웹툰 등록2</button> -->
+
+                      <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                        <br><br><br><br><br>
+                      </div>
+                      <button class="price-a btn-outline-warning">첫화 보기</button>
+                      <button class="price-a btn-outline-warning interestWebtoon">관심 웹툰 등록</button>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 두번째 글자 위치 -->
+                <div class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block">
+                  <!-- d-xl-block : 가장 큰 화면 보이기 / none : 안보이기 -->
+                  <!-- d-lg-block : 두번째 큰 화면 보이기 / none : 안보이기 -->
+                  <!-- 여기서부터 왼쪽 네비버튼 나옴 -->
+
+                  <!-- d-md-block : 중간 화면 보이기 / none : 안보이기 -->
+                  <!-- d-sm-block : 작은 화면 보이기 / none : 안보이기 -->
+                  <!-- d-block : 핸드폰(가장작은) 화면 보이기 / none : 안보이기 -->
+                  <br>
+                  <h1 class="mb-4 font-weight-bold">
+                    <span class="color-b">[[${webtoon.title}]]</h1>
+                  <h3 class="text-white">웹툰 소개</h3>
+                  <p>[[${webtoon.introduce}]]</p>
+                  <h4 class="text-white">[[${webtoon.author}]]</h4>
+                </div>
+                <!-- 두번째 글자 위치 끝-->
+                <!-- 글자 위치 끝 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 첫번째 화면 끝 -->
+    </div>
+    <!--/ Carousel end /-->
+
+    <!-- 목록 보여주는 화면  -->
+    <div class="container pt-5 pb-5">
+      <div class="ml-5 mr-5">
+
+        <!-- 테이블 -->
+        <div class="container">
+          <table class="table text-center" style="vertical-align: middle;">
+            <tr>
+              <td>이미지</td>
+              <td>제목</td>
+              <td>평점</td>
+              <td>등록일</td>
+            </tr>
+
+            <!-- 항목1 -->
+            <tr th:each="episode: ${episodeList}">
+              <td>
+                <img th:src="'/displayWebtoon/'+${webtoon.title}+'/'+${episode.subtitle}+'/'+${episode.thumbnailPath}"
+                  alt="">
+              </td>
+              <td><a class="btn modal_btn" data-toggle="modal" data-target="#exampleModalLong"
+                  th:data-eno=${episode.eno}>[[${episode.subtitle}]]</a></td>
+              <td>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/160px-Heart_coraz%C3%B3n.svg.png"
+                  alt="" style="width: 20px">
+                <span>&nbsp;&nbsp;[[${episode.grade}]]</span>
+              </td>
+              <td>[[${episode.regdate}]]</td>
+            </tr>
+            <!-- 항목1 끝 -->
+          </table>
+        </div>
+        <!-- 테이블 끝 -->
+      </div>
+    </div>
+    <!-- 목록 보여주는 화면 끝 -->
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn modal_btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button> -->
+
+  </div>
+  <!-- 웹페이지 끝 -->
+
+  <!-- 관심 웹툰 등록 -->
+  <script>
+    $('.interestWebtoon').on('click', function () {
+
+
+      if (confirm("관심 웹툰으로 등록하시겠습니까?")) {
+
+        var interest = new Object();
+        var member = new Object();
+        var webtoon = new Object();
+
+        interest.member = member;
+        interest.webtoon = webtoon;
+
+        interest.webtoon.wno = '[(${webtoon.wno})]';
+        interest.member.id = 'user';
+
+        registerInterest(interest);
+
+        // 관심웹툰 등록
+        function registerInterest(interest) {
+          $.ajax({
+            url: '/rest/interest',
+            type: 'POST',
+            async: false, // ajax를 동기식으로 설정.
+            data: JSON.stringify(interest),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+              alert("등록되었습니다.");
+            }, error: function (xhr, status, er) {
+              console.log("fail");
+              if (er) error(er);
+            }
+          })
+        }
+      }
+    })
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <style>
+    .comment-details {
+      display: block !important;
+    }
+
+    .table td {
+      vertical-align: middle;
+    }
+
+    .fixed-div {
+      position: fixed;
+      z-index: 1051;
+      box-shadow: 0 5px 20px 4px rgba(0, 0, 0, .1);
+      top: 100px;
+      right: 30px;
+    }
+
+    /* modal header and footer style */
+    .fixed-modal {
+      position: fixed;
+      display: none;
+      width: 100vw;
+      height: 60px;
+      left: 0px;
+      background-color: white;
+      z-index: 1100;
+    }
+
+    .modal-header {
+      top: 0px;
+    }
+
+    .modal-footer {
+      bottom: 0px;
+    }
+
+    .imgDiv span {
+      display: inline-block !important;
+    }
+
+    /* 평점 관련 스타일 */
+    .star_rating {
+      font-size: 0;
+      text-align: center;
+      letter-spacing: -4px;
+    }
+
+    .star_rating a {
+      font-size: 36px;
+      letter-spacing: 0;
+      display: inline-block;
+      margin-left: 5px;
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .star_rating a:first-child {
+      margin-left: 0;
+    }
+
+    .star_rating a.on {
+      color: #e4f500;
+    }
+  </style>
+
+  <style>
+    /* 스크랩 관련 스타일 */
+    #screenshot_mask {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      display: block;
+      opacity: 0.3;
+      text-align: center;
+      box-sizing: border-box;
+      z-index: 2147483647;
+      border-color: black;
+      border-style: solid;
+    }
+
+    #screenshot_focus:before,
+    #screenshot_focus:after {
+      border: none !important;
+      content: "" !important;
+      height: 100% !important;
+      position: absolute !important;
+      width: 100% !important
+    }
+
+    #screenshot_focus:before {
+      border-right: 1px solid white !important;
+      border-bottom: 1px solid white !important;
+      left: -100% !important;
+      top: -100% !important
+    }
+
+    #screenshot_focus:after {
+      border-top: 1px solid white !important;
+      border-left: 1px solid white !important;
+      left: 0 !important;
+      top: 0 !important
+    }
+
+    #screenshot_focus {
+
+      height: 100% !important;
+      position: fixed !important;
+      width: 100% !important;
+      z-index: 2147483648 !important
+    }
+
+    /* 앨범에 저장하기 위한 모달. */
+    #captureModal.activeModal {
+      display: block !important;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      background-color: white;
+      border: solid 3px yellow;
+      z-index: 1100;
+      box-shadow: 0 5px 20px 4px rgba(0, 0, 0, .1);
+    }
+
+    #captureModal {
+      display: none;
+    }
+
+    /* 번역 말풍선 관련 스타일 */
+    .fontBox {
+      background-color: white;
+      position: absolute;
+    }
+
+    #scrapImgDiv {
+      text-align: center;
+      border: solid 1px #000;
+    }
+
+    #scrapImgDiv img {
+      display: inline-block;
+    }
+
+    #imgTmp {
+      max-height: 300px;
+    }
+  </style>
+
+
+  <!-- 조회페이지에서의 댓글 -->
+  <script>
+
+    // 무한스크롤 페이징을 위한 페이지 번호
+    var page = 0;
+
+
+    // 댓글 등록
+    $('#replyBtn').on('click', function (e) {
+      e.preventDefault();
+
+      var reply = new Object();
+      var replyText = $('#replyText');
+
+      reply.comment = replyText.val();
+      reply.episode = episode;
+
+      $.ajax({
+        type: 'post',
+        url: '/reply/new',
+        data: JSON.stringify(reply),
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+          // console.log(result);
+          replyText.val('');
+          $('.list-comments').html('');
+          getReplyList(((page + 1) * 10 + 1));
+          setTimeout(function () { page = 0 }, 1000);
+
+        }, error: function (request, status, error) {
+          console.log("fail....")
+          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+      })
+    })
+
+    // 댓글 무한스크롤
+    $(document).ready(function () {
+      var $modal = $('.modal.fade');
+      var $scrollCheckBox = $('modal-dialog');
+
+      $modal.scroll(function () {
+        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+        var contentH = $('.modal-dialog').height(); //div의 높이
+        // console.log(scrollT + ", " + contentH)
+        if (scrollT + 881 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+          page++;
+          // console.log('pagePlus')
+          getReplyList();
+        }
+      });
+    })
+
+    // 댓글 조회
+    function getReplyList(amount) {
+      if (amount === undefined) {
+        amount = 10;
+      }
+      console.log(amount)
+      var eno = episode.eno;
+      $.getJSON("/reply/" + eno + "/" + page + "/" + amount, function (data) {
+        console.log("getReplyListSuccess.................")
+
+        // 가져온 데이터를 화면에 출력한다.
+        showReplyList(data);
+      }).fail(function (xhr, status, err) {
+        console.log("getReplyListFail...")
+      });
+    }
+
+    function showReplyList(replyList) {
+      var replyStr = '';
+      // console.log(replyList);
+      for (let i = 0; i < replyList.length; i++) {
+
+        replyStr += '<li>'
+          + '<div class="comment-details">'
+          + '<h4 class="comment-author">' + replyList[i].member.id
+          + '<span style="font-size: 18px;" class="float-right">' + replyList[i].regdate
+          + '</span></h4><p class="comment-description">' + replyList[i].comment + '</p>'
+          + ' <span style="display: inline-block;"><img src="http://static.hubzum.zumst.com/hubzum/2015/09/18/13/e3ca387964eb4fd5aaf91b99051bb4e5.jpg" alt="" style="width: 20px;">'
+          + replyList[i].like
+          + '<span style="display: inline-block;"><img src="http://www.digitaltoday.co.kr/news/photo/201509/64766_77682_410.jpg" style="width: 20px;">'
+          + replyList[i].dislike + '</span>';
+      }
+      // console.log(replyStr)
+      $('.list-comments').append(replyStr);
+    }
+  </script>
+
+  <!-- show modal -->
+  <script>
+    var episode;
+    $('.btn.modal_btn').on('click', function (e) {
+      // 댓글 목록을 가져오며 page는 0으로 설정한다.
+      // 댓글은 맨 아래있으므로 시간을 주고 나중에 처리한다.(1.5초뒤)
+      setTimeout(function () {
+        getReplyList();
+        page = 0;
+      }, 1500)
+
+      getFileList($(this).data("eno"));
+      fixedModalClick();
+      // showWebtoon();
+      // getTrans();
+    })
+
+    $('.btn.mobileModal').on('click', function(e){
+      
+      console.log("click..................")
+    })
+
+    // 모달창 클릭시, 에피소드 파일들과 번역본들의 경로를 가져온다.
+    function getFileList(eno) {
+      $.getJSON("/rest/interest/" + eno, function (data) {
+
+        console.log("getFileList Success");
+        episode = data;
+        let webtoonFileList = episode.webtoonFileList;
+        console.log("webtoonFileList: " + webtoonFileList);
+        let imageFile = "";
+        let ocrFile = "";
+        let webtoonName = '[(${webtoon.title})]';
+        let subtitle = episode.subtitle;
+
+        // image를 담을 div를 생성.
+        for (let i = 0; i < webtoonFileList.length; i++) {
+          imageFile = webtoonFileList[i].image;
+          ocrFile = webtoonFileList[i].ocrjson;
+          makeWebtoon(webtoonName, subtitle, imageFile, ocrFile, i);
+        }
+      }).fail(function (request, status, error) {
+        console.log("fail....")
+        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+      })
+    }
+
+    // 웹툰 이미지와 번역파일 생성하는 메서드를 호출.
+    function makeWebtoon(webtoonName, subtitle, imageFile, ocrFile, index) {
+      console.log("imageFile: " + imageFile)
+      $('.imgDiv').append("<div id='imgDiv" + index + "' style='position: relative'></div>");
+      showWebtoon(webtoonName, subtitle, imageFile, index);
+      getTrans(webtoonName, subtitle, ocrFile, index);
+    }
+
+
+  </script>
+
+  <!-- 평점 -->
+  <script>
+    $(".star_rating a").click(function (e) {
+      e.preventDefault();
+      if (confirm("Your rating is OK?")) {
+        $(this).parent().children("a").removeClass("on");
+        $(this).addClass("on").prevAll("a").addClass("on");
+      }
+    });
+  </script>
+
+  <!-- modal -> header and footer show and hide -->
+  <script>
+    $('.imgDiv').on('click', '#webtoonImg', function (e) {
+      // console.log(1);
+      fixedModalClick();
+    })
+
+    function fixedModalClick() {
+      $('.fixed-modal').slideDown('slow');
+      setTimeout(function () {
+        $('.fixed-modal').slideUp('slow');
+      }, 3000);
+    }
+
+  </script>
+
+  <!-- 스크랩기능 -->
+  <script>
+
+    $('.modal_btn').on('click', function (e) {
+      $('#exampleModalLong').modal({ backdrop: 'static', keyboard: false });
+    });
+
+
+    // 사용자의 앨범 목록을 가져온다.
+    function getAlbumList() {
+      $.getJSON("/rest/getAlbumList", function (data) {
+
+        console.log(data);
+
+        let albumList = document.getElementById("albumName");
+        for (let i = 0; i < data.length; i++) {
+          let option = document.createElement("option");
+          option.text = data[i].albumName;
+          option.value = data[i].albumName;
+          albumList.add(option, null);
+        }
+      }).fail(function (request, status, error) {
+        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+      })
+    }
+
+
+    $("#capture").on('click', function (e) {  //캡쳐 기능 활성화
+
+
+      let canvasObject = new Object();
+
+      var height = window.innerHeight;
+      var width = $(document).width();
+      var $mask = $('<div id="screenshot_mask"></div>').css("border-width", "0 0 " + height + "px 0");
+      var $focus = $('<div id="screenshot_focus"></div>');
+      $("body").append($mask);  //dimmed 추가
+      $("body").append($focus);  //마우스 커서에 따라 캡쳐 영역을 만들 div
+
+      var selectArea = false;
+      $("body").one("mousedown", function (e) {  //캡쳐 영역 선택 시작
+        e.preventDefault();
+        selectArea = true;
+        startX = e.pageX;
+        startY = e.pageY;
+
+        startAreaX = e.clientX;
+        startAreaY = e.clientY;
+      }).one('mouseup', function (e) {  //캡쳐 시작
+        selectArea = false;
+        $("body").off('mousemove', mousemove);  //이벤트 삭제
+        $("#screenshot_focus").remove();  //마우스 포커스 삭제
+        $("#screenshot_mask").remove();  //딤 삭제
+
+        var x = e.pageX;
+        var y = e.pageY;
+        var top = Math.min(y, startY);
+        var left = Math.min(x, startX);
+        var width = Math.max(x, startX) - left;
+        var height = Math.max(y, startY) - top;
+
+        html2canvas(document.body).then(function (canvas) {  //전체 화면 캡쳐
+          var img = canvas.getContext('2d').getImageData(left, top, width, height);  //선택 영역만큼 crop
+          var c = document.createElement("canvas");
+          c.width = width;
+          c.height = height;
+          c.getContext('2d').putImageData(img, 0, 0);
+
+          selectAlbum(c); // 앨범 선택
+
+          // 사진의 퀄리티는 0 ~ 1.0사이로 설정 가능. -> base64 형식임
+          canvasObject.base64 = c.toDataURL("image/jpeg", 1.0);
+
+          // 앨범에 사진 등록
+          $("#addFile").off('click').on("click", function () {
+            canvasObject.albumName = document.getElementById("albumName").value;
+            canvasObject.albumFile = document.getElementById("albumFile").value;
+            canvasObject.albumContent = document.getElementById("albumContent").value;
+            // console.log(canvasObject);
+            addFile();
+            closeSelectAlbumModal();
+          })
+
+          // save(c);  //crop한 이미지 pc에 저장
+        });
+      }).on("mousemove", mousemove);  //캡쳐 영역 크기 변경
+
+      function mousemove(e) {
+        var x = e.clientX;
+        var y = e.clientY;
+        $focus.css("left", x);  //마우스 커서 따라 좌표 포커스 이동
+        $focus.css("top", y);
+
+        if (selectArea) {  //캡쳐 영역 선택 그림
+          var top = Math.min(y, startAreaY);
+          var right = width - Math.max(x, startAreaX);
+          var bottom = height - Math.max(y, startAreaY);
+          var left = Math.min(x, startAreaX);
+          $mask.css("border-width", [top + 'px', right + 'px', bottom + 'px', left + 'px'].join(' '));
+        }
+      }
+
+      // 사진을 저장할 앨범을 선택할 창 띄우기
+      function selectAlbum(canvas) {
+        getAlbumList();
+        // console.log('aa');
+
+        let captureModal = document.getElementById("captureModal")
+        let scrapImgDiv = document.getElementById("scrapImgDiv")
+        captureModal.classList.add("activeModal");
+
+
+        let img = document.getElementById('imgTmp');
+        img.src = canvas.toDataURL("image/jpeg", 1.0);
+        scrapImgDiv.append(img);
+
+        setTimeout(function () { fixedCenter() }, 5)
+
+        // 캡처 화면을 가운데로 오게 만들어주는 함수.
+        function fixedCenter() {
+          let $captureModal = $(captureModal)
+
+          let top = parseInt(window.innerHeight) / 2
+          let left = parseInt(window.innerWidth) / 2
+          let width = parseInt(($captureModal.css("width")).replace("px", "")) / 2
+          let height = parseInt(($captureModal.css("height")).replace("px", "")) / 2
+
+          $captureModal.css("top", top - height + "px")
+          $captureModal.css("left", left - width + "px")
+        }
+
+        // 앨범 추가
+        $('#addAlbum').off('click').on("click", function () {
+          let addAlbum = document.getElementById("albumGroupName").value;
+          let albumList = document.getElementById("albumName");
+          let option = document.createElement("option");
+          option.text = addAlbum;
+          option.value = addAlbum;
+          albumList.add(option, null);
+          // console.log(addAlbum);
+        })
+
+        // 창 닫기
+        $('#albumCloseBtn').on("click", function () {
+          closeSelectAlbumModal();
+        })
+      }
+
+      // 서버에 파일 저장.
+      function addFile() {
+        $.ajax({
+          url: '/file',
+          type: 'POST',
+          async: false, // ajax를 동기식으로 설정.
+          data: JSON.stringify(canvasObject),
+          contentType: "application/json; charset=utf-8",
+          success: function (result, status, xhr) {
+            console.log(result);
+          }, error: function (xhr, status, er) {
+            console.log("fail");
+            if (error) error(er);
+          }
+        })
+      }
+
+      function closeSelectAlbumModal() {
+        document.getElementById("captureModal").classList.remove("activeModal");
+      }
+    });
+  </script>
+
+
+  <script>
+    // 웹툰을 보여주기 위한 함수.
+
+    // 웹툰 모달창을 닫을경우 캡쳐를 위한 모달도 같이 닫힌다
+    $('body').on("click", '#modalClosed', function () {
+      $('.imgDiv').html('');
+    })
+
+    function showWebtoon(webtoonName, subtitle, imageFile, index) {
+      console.log("showWebtoon: " + imageFile);
+      console.log($('#imgDiv' + index));
+      $('#imgDiv' + index).append("<img src='/displayWebtoon/" + webtoonName + "/" + subtitle + "/" + imageFile + "' id='webtoonImg'>");
+    }
+  </script>
+
+  <script>
+    // 번역 파일을 서버에서 가져온다.
+    function getTrans(webtoonName, subtitle, ocrFile, index) {
+      // drawCanvas();
+      $.getJSON("/getOCR/" + webtoonName + "\\" + subtitle + "\\" + ocrFile, function (data) {
+        console.log("getOCR: " + ocrFile);
+        console.log("index: " + index)
+        transFun(data, index);
+      }).fail(function (request, status, error) {
+        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+      })
+
+      // 글자의 크기 조절 -> 바로 시작할 경우, span태그의 css속성이 생기기 전이므로 0.2초정도 텀을 준다.
+      setTimeout(function () {
+        textSize();
+      }, 200);
+    }
+
+    function transFun(trans, index) {
+      // console.log(trans);
+      // let div = document.getElementsByClassName('imgDiv');
+
+      let div = $('#imgDiv' + index);
+      let str = '';
+      for (let i = 0; i < trans.length; i++) {
+        let x = trans[i].boungdingBox[0].x_;
+        let y = trans[i].boungdingBox[0].y_;
+
+        str += '<div class="fontBox" style="width: '
+          + (trans[i].boungdingBox[2].x_ - x + 20)
+          + 'px; height: ' + (trans[i].boungdingBox[2].y_ - y)
+          + 'px; top: ' + y
+          + 'px; left: ' + (x - 15)
+          + 'px; background-color: ' + 'white'
+          + ';"><span class="spanId" style="color: black">'
+          + trans[i].text + "</span></div>";
+      }
+
+      // 말풍선에 번역글을 넣어준다.
+      div.append(str);
+
+
+    }
+
+    // image를 canvas에 그린다. -> 좌표의 색상을 얻기 위함.
+    function drawCanvas() {
+      var img = document.getElementById('webtoonImg');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+      // console.log(canvas);
+    }
+
+    // x,y 좌표의 픽셀데이터를 얻어온다.
+    function getColor(x, y) {
+      var pixelData = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
+      // var i = ((y * canvas.width) + x) * 4;
+      // console.log(pixelData);
+      // return getHex(pixelData);
+      console.log('rgb(' + pixelData[0] + ',' + pixelData[1] + ',' + pixelData[2] + ')');
+      return ('rgb(' + pixelData[0] + ',' + pixelData[1] + ',' + pixelData[2] + ')');
+    }
+
+    // 픽셀데이터의 RGB 색상을 16진수로 반환
+    function getHex(data) {
+      // console.log(i);
+      //  Builds a CSS color string from the RGB value (ignore alpha) 
+      return ("#" + d2Hex(data[0]) + d2Hex(data[1]) + d2Hex(data[2]));
+    }
+
+    // 픽셀데이터의 r,g,b를 각각 매개변수로 받아서 각각 16진수로 반환.
+    function d2Hex(d) {
+      // Converts a decimal number to a two digit Hex value 
+      var hex = Number(d).toString(16);
+      while (hex.length < 2) {
+        hex = "0" + hex;
+      }
+      return hex.toUpperCase();
+    }
+
+    // 번역본의 글자 크기를 조절해준다.
+    function textSize() {
+      $.fn.textfill = function (options, i) {
+        var it = $(this);
+        var fontSize = options.maxFontPixels;
+        var ourText = $('span:visible:first', this);
+
+        var maxHeight = it.height();
+        var maxWidth = it.width();
+
+        var textHeight;
+        var textWidth;
+        // console.log(ourText);
+
+        do {
+          ourText.css('font-size', fontSize);
+          textHeight = ourText.height();
+          textWidth = ourText.width();
+          fontSize = fontSize - 2;
+        } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
+        return this;
+      }
+
+      var fontBox = $('.fontBox');
+      fontBox.each(function (i, e) {
+        $(e).textfill({ maxFontPixels: 70 }, i);
+      })
+    }
+
+  </script>
+
+  <!-- 
+  <script th:inline="javascript"> 
+    var webtoon = '/*[(${webtoon})]*/';
+    var episodeList = '/*[(${episodeList})]*/';
+    var interest = '/*[(${interest})]*/';
+    console.log(webtoon.wno);
+    console.log(episodeList);
+    console.log(interest);
+  </script>  -->
+
+  <!-- 모바일 페이지 시작 -->
+  <div class="d-block d-sm-block d-md-block d-lg-none d-xl-none">
+    <br><br><br><br><br>
+    <div
+      style="position: relative; height: 40vh !important; background-image: url(https://data.1freewallpapers.com/detail/dark-horror-gothic-cemetary-grave-black-white-spooky-creepy-lfog-mist-mood-gallery.jpg); height: 50%; background-repeat: no-repeat; background-size: cover;">
+      <p class="intro-title-top"><br><br>
+        <span style="float: right;">
+          <img src="http://cfile213.uf.daum.net/image/253FEA3457F97CCE3DCBC7" style="width: 20px;">
+          [[${interest}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <h2 class="mt-2" style="text-align:center">
+          <span class="color-b">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[${webtoon.title}]]</span>
+        </h2>
+      </p>
+      <h5 class="text-white float-right">[[${webtoon.author}]]&nbsp;&nbsp;&nbsp;</h5>
+      <span style="position: absolute; bottom: 3vh; float: right;">
+        <button class="price-a btn-outline-warning">첫화 보기</button>
+        <button class="price-a btn-outline-warning interestWebtoon">관심 웹툰 등록</button>
+      </span>
+    </div>
+
+    <br>
+
+    <div>
+      <ul style="list-style: none;" class="p-3">
+        <li th:each="episode: ${episodeList}">
+          <div>
+            <img th:src="'/displayWebtoon/'+${webtoon.title}+'/'+${episode.subtitle}+'/'+${episode.thumbnailPath}"
+              alt="" style="width: 50vw;">
+            <div style="display: inline-block;">
+
+              <a onClick="moblieRead()" th:data-eno=${episode.eno}>[[${episode.subtitle}]]</a><br>
+
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/160px-Heart_coraz%C3%B3n.svg.png"
+                alt="" style="width: 20px">
+              <span>&nbsp;&nbsp;[[${episode.grade}]]</span>
+            </div>
+          </div>
+          <br>
+        </li>
+
+
+      </ul>
+    </div>
+
+    <div id="moblieRead" style="display: none; width:100vw; height: 100vh; background-color: white; z-index: 1500; position: absolute; top:0">
+      <div id="readHeader" style="position: fixed; width: 100vw; height: 5vh; top: 0px; text-align: center; background-color: white;">
+        <span style="float: right;" onClick="mobileReadClose()">X</span>
+        <h5 style="line-height: 5vh;">Header</h5>
+      </div>
+
+      <div class="webtoonReadImg" style="width: 100vw;">
+        <img th:src="@{/img/img1.jpg}" style="width: 100%;" alt="">
+      </div>
+
+      <div id="readFooter" style="position: fixed; width:100vw; height: 5vh; bottom: 0px; text-align: center; background-color:white; line-height: 5vh;">
+        <sapn style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;←</sapn>
+        <span>==</span>
+        <span style="float: right;">→&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+      
+    </div>
+
+  </div>
+  <!-- 모바일 페이지 끝 -->
+
+  <script>
+
+    function mobileReadClose(){
+      $('#moblieRead').css('display', 'none');
+      $('.webtoonReadImg').html('')
+
+    }
+
+    function moblieRead(){
+      console.log("===================================")
+      $('#moblieRead').css('display', 'block');
+      
+      
+    }
+
+  </script>
+
+
+
+
+
+  <div class="modal-header fixed-modal">
+    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+  </div>
+
+  <div class="modal-footer fixed-modal" style="text-align:center">
+    <span style="display: inline-block;">이전화</span>
+    <span style="display: inline-block; margin-left: 35%; margin-right: 35%;">==</span>
+    <span style="display: inline-block;">다음화</span>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <!-- close와 캡쳐버튼 -->
+    <div class="fixed-div">
+      <button type="button" id="modalClosed" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <input type="button" value="캡쳐" id="capture" />
+    </div>
+
+    <div class="modal-dialog" style="width: 690px; left: -5vw;" role="document">
+      <div class="modal-content" style="width: 690px;">
+        <div class="modal-body p-0">
+
+          <!-- 웹툰 보여주는 영역 -->
+          <div class="imgDiv" style="position: relative;">
+            <!-- <img th:src=@{/img/imgg0.jpg} alt="" id="webtoonImg"> -->
+            <!-- <img src="/img/test1.jpg" alt=""> -->
+            <!-- <img src="/img/agent-1.jpg" alt=""> -->
+          </div>
+
+          <!-- 평점 -->
+          <p class="star_rating">
+            <a href="" class="on">★</a>
+            <a href="" class="on">★</a>
+            <a href="">★</a>
+            <a href="">★</a>
+            <a href="">★</a>
+          </p>
+
+          <!-- 댓글 -->
+          <section class="news-single nav-arrow-b">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="news-img-box">
+                    <img src="img/slide-3.jpg" alt="" class="img-fluid">
+                  </div>
+                </div>
+                <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+                  <hr>
+                  <!-- 댓글달기 -->
+                  <div class="form-comments">
+                    <form class="form-a">
+                      <div class="row">
+                        <div class="col-md-12 mb-3">
+                          <div class="form-group">
+                            <label for="textMessage">Enter message</label><br>
+                            <textarea id="replyText" class="m-0" style="width: 70%;" placeholder="Comment *"
+                              name="message" cols="30" rows="3" required></textarea>
+                            <button id="replyBtn" type="submit" class="btn w-25 mb-5">Write reply</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <hr>
+                  <!-- 댓글달기 끝 -->
+                  <div class="box-comments">
+                    <!-- 댓글목록 -->
+                    <ul class="list-comments">
+                      <!-- 댓글 -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!--/ 댓글 끝 /-->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- 웹툰 리스트 모달 끝 -->
+
+
+  <!-- 캡쳐시, 앨범명 등을 입력하는 모달 -->
+  <div id="captureModal">
+    <span id="albumCloseBtn" style="float: right; margin: 5px;">X</span>
+    <h3 style="text-align: center;">Capture</h3>
+    <img id="imgTmp" src="" alt="">
+    <span>
+      <select name="albumName" id="albumName" style="width: 100%;">
+        <option>앨범 그룹을 선택해주세요.</option>
+      </select>
+    </span>
+    <br>
+    <button type="submit" name="addAlbum" id="addAlbum"
+      style="float: right; padding-top: 10px; padding-bottom: 10px; margin-top:8px">앨범 추가</button>
+    <input type="text" name="albumGroupName" id="albumGroupName" style="width: 80%;"
+      placeholder="추가하실 albumGroupName을 입력해주세요">
+    <br>
+    <input type="text" name="albumFile" id="albumFile" placeholder="스크랩의 제목을 입력해주세요">
+    <textarea name="albumContent" id="albumContent" style="width: 100% !important; height: 80px;"
+      placeholder="설명을 입력해주세요.">
+</textarea>
+    <br>
+    <div id="scrapImgDiv" style="width: 100%;">
+
+    </div>
+    <button type="submit" name="addFile" id="addFile"
+      style="width: 100%; text-align: center; margin-top: 3px;">스크랩하기</button>
+  </div>
+  <!-- 캡쳐시 앨범명 입력하는 모달 끝 -->
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</html>

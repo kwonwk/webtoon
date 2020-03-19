@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="layout/defaultLayout">
+<br lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .num{
+
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<section layout:fragment="content"></br></br></br></br></br></br></br></br>
+
+    <!-- 마이페이지 공통부분 -->
+  <!-- Web -->
+  <div class="container">
+    <div class=" d-none d-md-block">
+      <ul class="row list-unstyled justify-content-between nav-item m-0 p-0">
+        <li class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">관심 웹툰</li>
+        <li class="nav-item text-center m-0 p-3 navbar-default bookmark" style="width: 25%;">책갈피</li>
+        <li class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">스크랩</li>
+        <li class="nav-item text-center m-0 p-3 navbar-default" style="width: 25%;">최근 본 웹툰</li>
+      </ul>
+    </div>
+    <!-- Mobile -->
+    <div class="d-block d-md-none">
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle navbar-default" style="width: 100%;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Mypage Menu
+        </a>
+        <ul class="dropdown-menu navbar-default p-0 m-0" style="width: 100%;" aria-labelledby="navbarDropdown">
+          <li class="dropdown-item nav-link navbar-default">관심 웹툰</li>
+          <li class="dropdown-item nav-link navbar-default bookmark">책갈피</li>
+          <li class="dropdown-item nav-link navbar-default">스크랩</li>
+          <li class="dropdown-item nav-link navbar-default">최근 본 웹툰</li>
+        </ul>
+      </li>
+    </div>
+  </div>
+  <br>
+
+  <!-- 마이페이지 공통부분 끝 -->
+    <!-- 책갈피 || 최근 본 웹툰 탭 start -->
+  <!-- 목록 보여주는 화면  -->
+  <div class="container mt-3 pt-5 pb-5">
+    <div class="ml-5 mr-5">
+
+      <!-- 테이블 -->
+      <div class="container">
+        <table class="table text-center" style="vertical-align: middle;" >
+
+          <!-- 웹페이지 -->
+          <diV class="col-lg-4 d-none d-sm-none d-md-none d-lg-block d-xl-block">
+            <tr>
+           
+              <td></td>
+              <td>제목</td>
+              <td>화수</td>
+              <td>등록일자</td>
+              <td>선택</td>
+            </tr>
+
+             <!-- 항목1 -->
+             <tr th:each = "list : ${list}">
+              <td>
+                <img
+                  th:src="${list[1]}"
+                  alt="">
+              </td>
+              <td th:text = "${list[2]}"></td>
+              <td th:text = "${list[3]}"></td>
+              <td th:text = "${list[4]}"></td>
+              <td>
+                <input type="checkbox" name = "check" th:id = "${list[0]}">
+              </td>
+            </tr>
+         
+
+          </div>
+          <!-- 웹 페이지 끝 -->
+
+          <!-- 모바일 페이지 끝 -->
+
+        </table>
+      </div>
+      <!-- 테이블 끝 -->
+    </div>
+    <div>
+      <button type="submit" class="position-absolute delete" style="right: 10%;">삭제</button>
+    </div>
+  </div>
+  <!-- 목록 보여주는 화면 끝 -->
+  <!-- 책갈피탭 끝 -->
+
+  <form id = paramValue method="post">
+
+    
+  </form>
+
+<script>
+  
+  $(document).ready(function(){
+
+
+    $(".delete").on("click", function(){
+      
+      var formData = new FormData();
+      var bno = new Array();
+
+      $("input:checkbox[name=check]:checked").each(function(){
+
+        if($(this).val()==='on'){
+          
+            //console.log($(this));
+
+            formData.append("bno", $(this).attr("id"));
+
+            //bno.push($(this).attr("id"));
+
+            
+            // $("#paramValue").append("<input type ='hidden' name = 'bno' value ="+bno+">");
+            // $("#paramValue").attr("action", "/noLangToon/bookmark");
+            // $("#paramValue").submit();
+          }
+        })
+        
+        $.ajax({
+	        url: '/noLangToon/bookmark',
+	          data: formData,
+	          type: 'POST',
+	          success: function(result){
+              
+              log
+	   
+	          },
+	    	  error : "fail"
+	    }); //$.ajax
+
+        console.log(formData);
+
+        //formData.append("bno", bno);
+
+      })
+
+  })
+</script>
+
+</section>
+
+
+</html>

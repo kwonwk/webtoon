@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Board List</h1>
+
+    <!-- 리스트  -->
+
+    <h2> 제목 (댓글수) 작성자 등록일자</h2>
+    
+    <div th:each="blArr : ${boardListResult}">
+
+        <h2><a class="boardnoLink" th:href="${blArr[0].boardno}">[[${blArr[0].title}]]</a> 
+            ([[${blArr[3]}]]) 
+            [[${blArr[1].id}]] 
+            [[${blArr[0].regdate}]]</h2>        
+        
+    </div>
+
+    <form id="paramValue" method="GET"></form>
+
+    <!-- 리스트 끝 -->
+
+    <!-- 페이징 -->
+    <!-- 타임리프로 페이지 찍는방법? -->
+
+    <div id="paging">
+        <th:block th:each="num : ${#numbers.sequence(1,5)}">
+            <a th:href="${num}">[[${num}]]</a>
+
+        </th:block>
+    </div>
+
+    <!-- 페이징 끝 -->
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+
+    <script>
+    
+        $(document).ready(function(){
+
+            $(".boardnoLink").on("click",function(e){
+                
+                e.preventDefault();
+
+                var param = $(this).attr("href");
+
+                $("#paramValue").append("<input type='hidden' name = 'boardno' value='"+param+"'>");
+
+                $("#paramValue").attr("action", "/noLangToon/boardRead");
+
+                $("#paramValue").submit();
+
+            })
+
+            $("#paging a").on("click",function(e){
+
+                e.preventDefault();
+
+                var param = $(this).attr("href");
+
+                alert(param);
+
+                $("#paramValue").append("<input type='hidden' name = 'page' value='"+param+"'>");
+                $("#paramValue").append("<input type='hidden' name = 'size' value='10'>");
+
+                $("#paramValue").attr("action", "/noLangToon/boardList");
+
+                $("#paramValue").submit();
+
+            })
+
+        })
+
+    </script>
+
+</body>
+</html>
