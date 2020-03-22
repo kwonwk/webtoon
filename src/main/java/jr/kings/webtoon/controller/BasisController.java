@@ -67,28 +67,10 @@ public class BasisController {
 
     }
 
-    // @GetMapping("/login")
-    // public String login() {
-    // return "/login";
-    // }
-
-    // @PostMapping("/login")
-    // public String login(@PathVariable("username") String id,
-    // @PathVariable("password") String pw) {
-    // log.info("ID....." + id);
-    // log.info("PW....." + pw);
-    // Member member = new Member();
-    // member.setId(id);
-    // member.setPw(pw);
-
-    // return "redirect:/noLangToon/main";
-    // }
 
     @GetMapping("/myPage")
     public void myPage(Model model) {
-        // List<Object[]> interestedResult =
-        // webtoonServiceImpl.getInterestedWebtoon("user", 0);
-        // model.addAttribute("interestedResult", interestedResult);
+        
     }
 
     @GetMapping("/webtoonList")
@@ -168,9 +150,6 @@ public class BasisController {
 
         log.info("search :   " + search[0]);
 
-        // log.info(""+webtoonRepository.getSearchList(search[0]));
-
-        // return null;
         return new ResponseEntity<>(webtoonServiceImpl.getSearch(search[0]), HttpStatus.OK);
     }
 

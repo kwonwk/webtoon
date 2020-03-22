@@ -33,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
  * RestController
  */
 @Slf4j
-@Controller
 @RestController
 @AllArgsConstructor
 @RequestMapping("/rest")
@@ -50,10 +49,9 @@ public class AjaxController {
 
     // 웹툰 조회창 클릭시 웹툰 이미지, OCR파일들의 경로를 보내주는 메서드.
     @GetMapping(value = "/interest/{eno}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public Episode getEpisode(@PathVariable("eno") Integer eno) {
         Episode episode = new Episode();
-        System.out.println("getEpisode...............");
+      
         List<Object[]> objArrList = episodeService.getShowEpisode(eno);
         if (objArrList.get(0)[0] instanceof Episode) {
             episode = (Episode) objArrList.get(0)[0];
@@ -68,12 +66,13 @@ public class AjaxController {
     }
 
     // 관심웹툰 등록
-    @RequestMapping(value = "/interest", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/interest", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> add(@RequestBody Interested interest) {
 
         Member member = new Member();
         member.setId("user");
         interest.setMember(member);
+
         log.info(interest.getWebtoon() + "");
 
         memberService.interestRegister(interest);
@@ -89,7 +88,6 @@ public class AjaxController {
         log.info("getInterestedList.........................s");
         List<Object[]> objArrList = webtoonService.getInterestedWebtoon("user", interestPage);
         List<Interested> interestList = new ArrayList<>();
-        // List<Webtoon> webtoonList = new ArrayList<>();
 
         for (int i = 0; i < objArrList.size(); i++) {
             Interested interested = null;
@@ -98,8 +96,7 @@ public class AjaxController {
                 interested.setWebtoon(((Webtoon)objArrList.get(i)[1]));
                 interestList.add(interested);
             }
-            // if(objArrList.get(i)[1] instanceof Webtoon)
-            //     webtoonList.add((Webtoon)objArrList.get(i)[1]);
+           
         }
         
         return interestList;
@@ -120,7 +117,7 @@ public class AjaxController {
     }
 
     // 앨범 등록
-    @RequestMapping(value = "/registAlbum", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/registAlbum", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registAlbum(@RequestBody Scrap scrap){
         
         log.info("registAlbum......................");
@@ -135,7 +132,7 @@ public class AjaxController {
     }
 
     // 앨범 삭제
-    @RequestMapping(value = "/deleteAlbumArr", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PosttMapping(value = "/deleteAlbumArr", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteAlbum(@RequestBody Integer[] albumnoArr) {
         log.info("deleteAlbumArr.............");
 
@@ -147,7 +144,7 @@ public class AjaxController {
     }
 
     // 앨범 이미지 삭제
-    @RequestMapping(value = "/deleteAlbumFiles", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/deleteAlbumFiles", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteAlbumFile(@RequestBody Integer[] afnoArr) {
         log.info("deleteAlbumFiles.............");
 
@@ -166,12 +163,11 @@ public class AjaxController {
         log.info("getAlbumList.........................s");
 
         return memberService.getAlbumFiles(albumno);
-        // return null;
-        // return episodeService.getScrapList("user", albumPage);
+        
     }
 
     // 관심 웹툰 삭제
-    @RequestMapping(value = "/deleteInterested", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/deleteInterested", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteInterested(@RequestBody Integer[] inoArr) {
         log.info("deleteInterested.............");
 
